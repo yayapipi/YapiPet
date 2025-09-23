@@ -14,6 +14,9 @@ public class SoapItem : DraggableItem
 	[Header("Pet Interaction")]
 	[SerializeField] private PetInteractionState pet;
 	[SerializeField] private string bathStateName = "Bath";
+	[Tooltip("搓澡音效（播放在寵物 AudioSource 上）")]
+	[SerializeField] private AudioClip bathSfx;
+	[SerializeField] [Range(0f, 1f)] private float bathSfxVolume = 1f;
 
 	[Header("Bubbles")]
 	[Tooltip("泡泡預置體（帶有 SpriteRenderer 與 BubbleEffect 組件）")]
@@ -27,10 +30,20 @@ public class SoapItem : DraggableItem
 	[Tooltip("最大同時存在泡泡數（池大小）")]
 	[SerializeField] private int bubblePoolSize = 16;
 
+	[Header("Usage Limit")]
+	[Tooltip("肥皂可搓澡的最大次數（用完即銷毀）")]
+	[SerializeField] private int maxScrubCount = 10;
+	[Tooltip("每累積多少拖拽距離算 1 次搓澡（世界座標單位）")]
+	[SerializeField] private float scrubDistancePerCount = 0.25f;
+	[Tooltip("目前已使用次數（執行期會成長）")]
+	[SerializeField] private int currentScrubCount = 0;
+
 	private bool isBathing;
-	private GameObject[] bubblePool;
-	private int bubbleIndex;
+	private BubblePool bubblePool;
 	private float bubbleAccumulator;
+	private float accumulatedScrubDistance;
+	private Vector3 lastDragPos;
+	private bool hasLastDragPos;
 
 	protected override void Awake()
 	{
@@ -38,22 +51,23 @@ public class SoapItem : DraggableItem
 		var col = GetComponent<Collider2D>();
 		if (col != null) col.isTrigger = true;
 		if (pet == null) pet = FindObjectOfType<PetInteractionState>();
-		InitBubblePool();
+		// 預設將泡泡父節點指向寵物
+		if (bubbleParent == null && pet != null) bubbleParent = pet.transform;
+		EnsureBubblePool();
 	}
 
-	private void InitBubblePool()
+	private void EnsureBubblePool()
 	{
-		if (bubblePrefab == null || bubblePoolSize <= 0)
+		if (pet == null) return;
+		bubblePool = pet.GetComponent<BubblePool>();
+		if (bubblePool == null)
 		{
-			bubblePool = null;
-			return;
+			bubblePool = pet.gameObject.AddComponent<BubblePool>();
 		}
-		bubblePool = new GameObject[bubblePoolSize];
-		for (int i = 0; i < bubblePoolSize; i++)
-		{
-			bubblePool[i] = Object.Instantiate(bubblePrefab, bubbleParent == null ? transform : bubbleParent);
-			bubblePool[i].SetActive(false);
-		}
+		// 將這次 Soap 的預置與大小配置進池（僅在未設定時或擴增大小時生效）
+		var parent = bubbleParent != null ? bubbleParent : pet.transform;
+		bubblePool.ConfigureIfEmpty(bubblePrefab, bubblePoolSize, parent);
+		bubblePool.EnsureInitialized();
 	}
 
 	private void OnTriggerEnter2D(Collider2D other)
@@ -61,6 +75,8 @@ public class SoapItem : DraggableItem
 		if (pet == null) return;
 		if (!other.transform.IsChildOf(pet.transform) && other.transform != pet.transform) return;
 		StartBath();
+		lastDragPos = transform.position;
+		hasLastDragPos = true;
 	}
 
 	private void OnTriggerExit2D(Collider2D other)
@@ -74,6 +90,28 @@ public class SoapItem : DraggableItem
 	{
 		base.OnDragging();
 		if (!isBathing) return;
+
+		// 計算拖拽移動距離以推進使用次數
+		if (hasLastDragPos)
+		{
+			float delta = (transform.position - lastDragPos).magnitude;
+			if (delta > 0f)
+			{
+				accumulatedScrubDistance += delta;
+				while (accumulatedScrubDistance >= scrubDistancePerCount)
+				{
+					accumulatedScrubDistance -= scrubDistancePerCount;
+					currentScrubCount++;
+					if (currentScrubCount >= maxScrubCount)
+					{
+						StopBath();
+						Destroy(gameObject);
+						return;
+					}
+				}
+			}
+			lastDragPos = transform.position;
+		}
 		SpawnBubbles(Time.deltaTime);
 	}
 
@@ -88,10 +126,12 @@ public class SoapItem : DraggableItem
 		if (isBathing) return;
 		isBathing = true;
 		bubbleAccumulator = 0f;
+		accumulatedScrubDistance = 0f;
+		hasLastDragPos = false;
 		if (pet != null)
 		{
-			// 進入互動（Bath），音效可在 Animator 或外部管理
-			pet.BeginInteraction(bathStateName, null, 1f);
+			// 進入互動（Bath），若有設定搓澡音效則播放一次
+			pet.BeginInteraction(bathStateName, bathSfx, bathSfxVolume);
 		}
 	}
 
@@ -99,6 +139,7 @@ public class SoapItem : DraggableItem
 	{
 		if (!isBathing) return;
 		isBathing = false;
+		hasLastDragPos = false;
 		if (pet != null)
 		{
 			pet.EndInteraction();
@@ -107,7 +148,7 @@ public class SoapItem : DraggableItem
 
 	private void SpawnBubbles(float deltaTime)
 	{
-		if (bubblePool == null || bubblePrefab == null) return;
+		if (bubblePool == null) return;
 		if (bubblesPerSecond <= 0f) return;
 		bubbleAccumulator += bubblesPerSecond * deltaTime;
 		int count = Mathf.FloorToInt(bubbleAccumulator);
@@ -116,7 +157,7 @@ public class SoapItem : DraggableItem
 
 		for (int i = 0; i < count; i++)
 		{
-			var go = NextBubble();
+			var go = bubblePool.Get();
 			if (go == null) return;
 			Vector2 rnd = Random.insideUnitCircle * bubbleRadius;
 			Vector3 center = pet != null ? pet.transform.position : transform.position;
@@ -125,18 +166,6 @@ public class SoapItem : DraggableItem
 			var eff = go.GetComponent<BubbleEffect>();
 			if (eff != null) eff.Play();
 		}
-	}
-
-	private GameObject NextBubble()
-	{
-		if (bubblePool == null || bubblePool.Length == 0) return null;
-		for (int n = 0; n < bubblePool.Length; n++)
-		{
-			bubbleIndex = (bubbleIndex + 1) % bubblePool.Length;
-			if (!bubblePool[bubbleIndex].activeSelf) return bubblePool[bubbleIndex];
-		}
-		bubbleIndex = (bubbleIndex + 1) % bubblePool.Length;
-		return bubblePool[bubbleIndex];
 	}
 }
 

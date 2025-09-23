@@ -183,8 +183,13 @@ MonoBehaviour:
   maxDragSpeed: 0
   pet: {fileID: 0}
   bathStateName: Bath
+  bathSfx: {fileID: 8300000, guid: 9c0756f37250640089bfbf5eb86b7fc8, type: 3}
+  bathSfxVolume: 1
   bubblePrefab: {fileID: 5346127600423666284, guid: 5d4e1eef3648649498ee7858e8e19d22, type: 3}
   bubbleParent: {fileID: 0}
   bubblesPerSecond: 6
   bubbleRadius: 1.2
   bubblePoolSize: 16
+  maxScrubCount: 200
+  scrubDistancePerCount: 0.25
+  currentScrubCount: 0
