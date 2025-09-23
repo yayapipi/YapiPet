@@ -1,0 +1,15 @@
+---
+description: 這款遊戲的開發背景資訊
+globs:
+alwaysApply: true
+---
+
+名字: Polar Pet
+介紹: 
+
+- 一款 2D 的寵物互動遊戲, 可以拖拽寵物, 使用道具跟寵物進行互動
+- 擁有 AI 的功能, 可以呼叫 API 進行對話互動
+- 寵物和道具使用 Sprite Renderer 
+- 有一個 UI 可以拖放道具到場景中進行互動
+
+根據我的指示滿滿的把功能實現
