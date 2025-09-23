@@ -155,7 +155,7 @@ MonoBehaviour:
   targetCamera: {fileID: 0}
   maxDragSpeed: 0
   pet: {fileID: 0}
-  eatStateName: Drag
+  eatStateName: Eat
   eatSfx: {fileID: 8300000, guid: 861e2222406bc4ec194fdbd9dae05ce8, type: 3}
   sfxVolume: 1
   autoFeedOnContact: 1

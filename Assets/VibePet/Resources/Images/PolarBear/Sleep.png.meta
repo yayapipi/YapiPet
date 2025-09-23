@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: a2210531afdae4eada55a7a473efe017
+guid: cbb046f1282f8497eb1ed9b99080ae3f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2971100146537081310
-    second: "\u53BB\u80CC\u7684Gemini_Generated_Image_s83nxys83nxys83n 2_0"
+      213: -1027457261848400190
+    second: Sleep 1_0
+  - first:
+      213: 5830426463204564793
+    second: Sleep 1_1
+  - first:
+      213: -7047885587298981942
+    second: Sleep 1_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +52,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -113,13 +119,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "\u53BB\u80CC\u7684Gemini_Generated_Image_s83nxys83nxys83n 2_0"
+      name: Sleep 1_0
       rect:
         serializedVersion: 2
-        x: 75
-        y: 283
-        width: 826
-        height: 450
+        x: 192
+        y: 180
+        width: 28
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +134,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 226db85882884c6d0800000000000000
-      internalID: -2971100146537081310
+      spriteID: 2ce61a5601dbdb1f0800000000000000
+      internalID: -1027457261848400190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sleep 1_1
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 210
+        width: 29
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93f58543af5d9e050800000000000000
+      internalID: 5830426463204564793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sleep 1_2
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 60
+        width: 227
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac7e27f4661e03e90800000000000000
+      internalID: -7047885587298981942
       vertices: []
       indices: 
       edges: []
@@ -138,7 +188,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +198,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      "\u53BB\u80CC\u7684Gemini_Generated_Image_s83nxys83nxys83n 2_0": -2971100146537081310
+      Sleep 1_0: -1027457261848400190
+      Sleep 1_1: 5830426463204564793
+      Sleep 1_2: -7047885587298981942
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
