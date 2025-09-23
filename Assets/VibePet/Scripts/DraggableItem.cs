@@ -109,6 +109,47 @@ public class DraggableItem : MonoBehaviour
 	protected virtual void OnDragEnd() { }
 	protected virtual void OnUpdateAfterDrag() { }
 
+	/// <summary>
+	/// 從外部（例如 UI 拖拽）啟動拖拽：
+	/// - 可選覆寫相機與拖拽目標 Z；
+	/// - 可選是否先將物件中心吸附到當前指標位置；
+	/// - 自動計算拖拽偏移，之後由本組件在 Update 中跟隨。
+	/// </summary>
+	public void BeginDragFromUI(Camera cameraOverride = null, float? overrideDragWorldZ = null, bool snapToPointer = true)
+	{
+		if (cameraOverride != null)
+		{
+			targetCamera = cameraOverride;
+		}
+		if (overrideDragWorldZ.HasValue)
+		{
+			dragWorldZ = overrideDragWorldZ.Value;
+		}
+
+		// 先將物件移動到指標位置（可選），確保 Z 正確
+		if (snapToPointer && targetCamera != null)
+		{
+			Vector3 screenPos = Input.mousePosition;
+			screenPos.z = Mathf.Abs(targetCamera.transform.position.z - dragWorldZ);
+			Vector3 world = targetCamera.ScreenToWorldPoint(screenPos);
+			world.z = dragWorldZ;
+			transform.position = world;
+		}
+
+		// 啟動拖拽並計算偏移
+		isDragging = true;
+		if (targetCamera != null)
+		{
+			Vector3 mouseWorld = GetMouseWorldPosition();
+			dragOffsetWorld = transform.position - mouseWorld;
+		}
+		else
+		{
+			dragOffsetWorld = Vector3.zero;
+		}
+		OnDragStart();
+	}
+
 	private Vector3 GetMouseWorldPosition()
 	{
 		Vector3 screenPos = Input.mousePosition;
