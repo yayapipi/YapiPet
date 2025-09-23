@@ -1,0 +1,20 @@
+{
+    "asset": "c0126bd190a8f4837bfdc7a22effd464",
+    "fileName": "0199765c-6aa2-7e42-90f0-d2232f3a7a3b.png",
+    "prompt": "bubble",
+    "negativePrompt": "",
+    "model": "9119be98-fcff-405c-a1af-375ec1d026cd",
+    "modelName": "Little Monster Maker",
+    "customSeed": -1,
+    "w3CTraceId": "5744d0978080c48eebb6a1be8d8ec30a",
+    "refinementMode": "Generation",
+    "pixelateTargetSize": 0,
+    "pixelateKeepImageSize": false,
+    "pixelatePixelBlockSize": 0,
+    "pixelateMode": 0,
+    "pixelateOutlineThickness": 0,
+    "doodles": {
+        "m_Items": []
+    },
+    "upscaleFactor": 0
+}
