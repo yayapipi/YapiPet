@@ -40,6 +40,11 @@ public class PetDragController : MonoBehaviour
 	[SerializeField] private float flipMinDelta = 0.001f;
 
 	private bool isDragging;
+
+	/// <summary>
+	/// 是否當前由玩家拖拽中（供 AI 或其他系統查詢以暫停移動）。
+	/// </summary>
+	public bool IsDragging => isDragging;
 	private Vector3 dragOffsetWorld;
 	private Vector3 lastWorldPos;
 

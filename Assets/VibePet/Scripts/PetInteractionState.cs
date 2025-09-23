@@ -18,6 +18,12 @@ public class PetInteractionState : MonoBehaviour
 	[SerializeField] private bool lockMovementDuringInteraction = true;
 
 	private bool isInteracting;
+
+	/// <summary>
+	/// 當前是否處於被互動狀態（吃、洗澡等）。
+	/// 供其他系統（例如 AI 控制）查詢以暫停移動。
+	/// </summary>
+	public bool IsInteracting => isInteracting;
 	private string currentStateName;
 	private string resumeStateName = "Walk_bear";
 
