@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class DialogueBubbleUI : MonoBehaviour
 {
@@ -28,6 +29,8 @@ public class DialogueBubbleUI : MonoBehaviour
 
     [Header("Visibility")] public float autoHideSeconds = 4f; // 自動隱藏秒數（<=0 表示不自動隱藏）
     private Coroutine autoHideCoroutine;
+
+    [Header("Events")] public UnityEvent<string> onShowText; // 當顯示文字時觸發（傳遞文字）
 
     private void Reset()
     {
@@ -90,6 +93,11 @@ public class DialogueBubbleUI : MonoBehaviour
 
         Show();
         ScheduleAutoHide();
+
+        if (onShowText != null)
+        {
+            onShowText.Invoke(text.text);
+        }
     }
 
     public void Show()
