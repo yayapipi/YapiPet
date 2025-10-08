@@ -2801,7 +2801,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -3342743851459327484, guid: bbf1502109ef0ff408117c44954e33d0, type: 3}
+  m_Sprite: {fileID: -2550332815192549250, guid: 96d44035b49c1484cb0e2ba4b1423fdc, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -4811,7 +4811,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 4.66, y: 8.25}
+    oldSize: {x: 4.67, y: 8.26}
     newSize: {x: 8.11, y: 4.3}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -5057,7 +5057,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -3342743851459327484, guid: bbf1502109ef0ff408117c44954e33d0, type: 3}
+  m_Sprite: {fileID: -2550332815192549250, guid: 96d44035b49c1484cb0e2ba4b1423fdc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5099,6 +5099,6 @@ SceneRoots:
   - {fileID: 2009970580}
   - {fileID: 1228249536}
   - {fileID: 1266492401}
-  - {fileID: 1503236195}
-  - {fileID: 1699022759}
   - {fileID: 1246283716}
+  - {fileID: 1699022759}
+  - {fileID: 1503236195}
