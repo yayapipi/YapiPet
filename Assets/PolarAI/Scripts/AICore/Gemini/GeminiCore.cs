@@ -195,6 +195,27 @@ namespace PolarAI.Scripts.Core.Gemini
             Debug.Log($"[Edit Images] Done ({mime}), {tex.width}x{tex.height}");
         }
 
+        // 對外公開啟動圖片編輯（以 Base64 圖片清單）
+        public Coroutine EditImagesAsync(List<string> base64ImgList, string instruction, Action<Texture2D> onImageReturn)
+        {
+            return StartCoroutine(EditImages(base64ImgList, instruction, onImageReturn));
+        }
+
+        // 對外公開：將 Texture2D 轉為 Base64 PNG
+        public string ToBase64Png(Texture2D texture)
+        {
+            try
+            {
+                var readable = ConvertToReadableTexture(texture);
+                if (readable == null) return null;
+                return Convert.ToBase64String(readable.EncodeToPNG());
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         public List<string> ConvertRawImagesToBase64(List<RawImage> rawImages)
         {
             var list = new List<string>();
