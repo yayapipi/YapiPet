@@ -2654,7 +2654,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a09be928b9b40eb8a67c459c1ed0f88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PolarAI.Scripts.Core.Gemini.GeminiCore
-  apiKey: AIzaSyDqNtDt58LUw0IIzvKf9PkYa8oDGgAcAZo
+  apiKey: 
   chatModel: gemini-2.5-flash
   imageModel: gemini-2.5-flash-image-preview
   enableDebugLog: 1
