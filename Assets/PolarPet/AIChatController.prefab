@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8241292256495835169
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7095454364590991161}
+  - component: {fileID: 4374930794289904199}
+  m_Layer: 0
+  m_Name: AIChatController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7095454364590991161
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8241292256495835169}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 989.4679, y: 372.35242, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4374930794289904199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8241292256495835169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cf3b7ef8bef4e943bda77d64b5e5ba4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AIChatController
+  geminiCore: {fileID: 0}
+  dialogueBubble: {fileID: 0}
+  inputRoot: {fileID: 0}
+  inputField: {fileID: 0}
+  toggleKey: 99
+  systemInstruction: "\u4F60\u662F\u4E00\u53EA\u5317\u6975\u718A\u5BF5\u7269, \u4F7F\u7528\u7E41\u9AD4\u4E2D\u6587\u8DDF\u6211\u5C0D\u8A71\u804A\u5929,
+    \u7C21\u77ED\u56DE\u5FA9, \u56DE\u5FA9\u7684\u6578\u5B57\u4E0D\u8981\u8D85\u904E20\u500B\u4E2D\u6587\u5B57"
